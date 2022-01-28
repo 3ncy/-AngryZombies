@@ -17,5 +17,14 @@ public class CameraController : MonoBehaviour
     {
         transform.position = new Vector3(hrac.position.x, hrac.position.y + vyska, hrac.position.z);
 
+
+
+        //todo: jen debug
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Time.timeScale = Time.timeScale == 1 ? 0 : 1;
+        }
+
     }
 }
