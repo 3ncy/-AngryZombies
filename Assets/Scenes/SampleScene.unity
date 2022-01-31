@@ -7233,11 +7233,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b95ff1685ce0d9c4487310f69034dd81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 26
+  speed: 10
   health: 100
   weapons:
   - Firerate: 0.25
-    Damage: 5
+    Damage: 50
     MuzzleFlash: {fileID: 19800000, guid: cdf14baff693fbc439f8c859529a63a6, type: 3}
     ImpactEffect: {fileID: 100006, guid: 234e5aa95353f0643b0181dc3872cda9, type: 3}
   selectedWeaponIndex: 0
@@ -17738,7 +17738,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356994413}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.483, z: 0.057}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1903693680}
@@ -17873,6 +17873,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: zombie (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
@@ -20249,6 +20254,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: zombie (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
@@ -24975,20 +24985,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: zombie (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.14
+      value: 8.99
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.32
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.822
+      value: -7.81
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
