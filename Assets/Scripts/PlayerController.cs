@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 26;
     [SerializeField] float health = 100;
-    [SerializeField] List<Weapon> weapons = new List<Weapon>(); //M4 - firerate 0.25, damage 20
+    [SerializeField] Weapon[] weapons;  //M4 - firerate 0.25, damage 20
     [SerializeField] int selectedWeaponIndex;
     [SerializeField] Transform shotsOrigin;
     private float timeSinceLastShot = 0;
@@ -50,15 +50,16 @@ public class PlayerController : MonoBehaviour
                 GameObject impactObj = Instantiate(weapons[selectedWeaponIndex].ImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(impactObj, 0.2f);
 
-                Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.CompareTag("Enemy"))
                 {
                     EnemyController enemy = hit.transform.GetComponent<EnemyController>();
                     if (enemy != null)
                     {
                         enemy.TakeDamage(weapons[selectedWeaponIndex].Damage);
-                        
+
                     }
+
+
 
                     //pridani knockbacku, mby udelat l8tr
                     //hit.rigidbody.addforce
@@ -102,7 +103,10 @@ public class PlayerController : MonoBehaviour
         Vector3 cursorScreenPos = Input.mousePosition;
         Vector3 directionToCursor = cursorScreenPos - playerScreenPos;
         Vector3 finalVector = new Vector3(directionToCursor.x, 0, directionToCursor.y);
-        transform.rotation = Quaternion.LookRotation(finalVector);
+
+        if (Time.timeScale > 0) //fix aby se hrac neotacel v pause menu
+            transform.rotation = Quaternion.LookRotation(finalVector);
+
 
     }
 

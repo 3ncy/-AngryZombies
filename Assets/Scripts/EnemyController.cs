@@ -40,7 +40,6 @@ public class EnemyController : MonoBehaviour
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
         if (playerController != null) playerController.TakeDamage(damage);
-        Debug.LogWarning(gameObject.name + " Hit player");
     }
 
     public void TakeDamage(float damage)

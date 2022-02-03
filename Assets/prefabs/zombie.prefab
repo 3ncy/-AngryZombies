@@ -331,7 +331,7 @@ MonoBehaviour:
   health: 100
   player: {fileID: 0}
   agent: {fileID: 2021532807020837222}
-  damage: 5
+  damage: 20
   animator: {fileID: 2021532807020837218}
 --- !u!195 &2021532807020837222
 NavMeshAgent:
