@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private new Camera camera;
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private UIManager uiManager;
 
     private float horizontalInput;
     private float verticalInput;
@@ -70,6 +71,18 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            uiManager.SwitchWeapon("M4");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            uiManager.SwitchWeapon("ump");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            uiManager.SwitchWeapon("shotgun");
+        }
 
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
@@ -125,6 +138,10 @@ public class PlayerController : MonoBehaviour
         // ridat red screen overlay pri hitu
 
         health -= damage;
+
+        //StartCoroutine(uiManager.ChangeHealth(health, damage < 0));
+        uiManager.ChangeHealth(health, damage < 0);
+
         if (health <= 0)
         {
             //death screen
@@ -137,5 +154,6 @@ public class PlayerController : MonoBehaviour
             }
             Destroy(this);
         }
+
     }
 }
