@@ -5,11 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public struct Weapon
 {
+    public string Name;
     public float Firerate; //je to v sekundach, mby predelat do RPM
     public float Damage;
     public float Range;
     public ParticleSystem MuzzleFlash;
     public GameObject ImpactEffect;
+    public GameObject WeaponModel;
+    public AudioClip Sound;
 }
 
 
@@ -26,22 +29,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private AudioSource audioSource;
 
     private float horizontalInput;
     private float verticalInput;
 
-    // Start is called before the first frame update
-    void Start()
-    { }
 
-    // Update is called once per frame
     void Update()
     {
         timeSinceLastShot += Time.deltaTime;
-        if (Input.GetButton("Fire1") && timeSinceLastShot >= weapons[selectedWeaponIndex].Firerate)//todo: pridat moznost ze nektere zbrane jsou single fire
+        if (Input.GetButton("Fire1") && timeSinceLastShot >= weapons[selectedWeaponIndex].Firerate)//todo: pridat typy zbrani
         {
             timeSinceLastShot = 0;
             weapons[selectedWeaponIndex].MuzzleFlash.Play();
+            //audioSource.PlayOneShot(weapons[selectedWeaponIndex].Sound);
+            audioSource.clip = weapons[selectedWeaponIndex].Sound;
+            audioSource.Play();
 
             RaycastHit hit;
             if (Physics.Raycast(shotsOrigin.position, shotsOrigin.forward, out hit, weapons[selectedWeaponIndex].Range))
@@ -71,17 +74,28 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+
+        //vice zbrani by se asi scalovalo pres new input system
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             uiManager.SwitchWeapon("M4");
+            weapons[selectedWeaponIndex].WeaponModel.SetActive(false);
+            weapons[0].WeaponModel.SetActive(true);
+            selectedWeaponIndex = 0;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2) && weapons.Length > 1)
         {
             uiManager.SwitchWeapon("ump");
+            weapons[selectedWeaponIndex].WeaponModel.SetActive(false);
+            weapons[1].WeaponModel.SetActive(true);
+            selectedWeaponIndex = 1;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha3) && weapons.Length > 2)
         {
             uiManager.SwitchWeapon("shotgun");
+            weapons[selectedWeaponIndex].WeaponModel.SetActive(false);
+            weapons[2].WeaponModel.SetActive(true);
+            selectedWeaponIndex=2;
         }
 
         horizontalInput = Input.GetAxis("Horizontal");
@@ -119,8 +133,6 @@ public class PlayerController : MonoBehaviour
 
         if (Time.timeScale > 0) //fix aby se hrac neotacel v pause menu
             transform.rotation = Quaternion.LookRotation(finalVector);
-
-
     }
 
     public void FixedUpdate()

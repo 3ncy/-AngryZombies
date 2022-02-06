@@ -8,6 +8,16 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] UIManager uiManager;
 
+
+    [SerializeField] Transform spawners;
+    private float spawnRate;
+    
+
+    Random random;
+
+    //tohle by bylo realne nejakej objekt nebo tak, ale ted to neni potreba
+    public float volumeSetting;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -18,13 +28,35 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+
+
+        random = new Random();
+    }
+
+    void Start()
+    {
+        Time.timeScale = 0;
+
+        LoadSettings();
     }
 
     public void StartGame()
     {
-        //todo: do spawning magic
-        LoadSettings();
+        random = new Random();
+        SpawnZombies();
+        Debug.Log(Time.time);
     }
+
+    private void SpawnZombies()
+    {
+        //todo: do spawning magic
+
+        //Time.time
+
+
+
+    }
+
 
     public void ExitGame()
     {
@@ -42,6 +74,9 @@ public class GameManager : MonoBehaviour
             case UnityEngine.UI.Slider slider: //tohle je hrozne cool syntaxe, jde se chovat k objektu jako k nejakemu typu ve switchi.                
                 PlayerPrefs.SetFloat(element.name, slider.value);
                 Debug.Log("saving " + element.name + slider.value);
+
+                //
+                AudioListener.volume = slider.value;
                 break;
         }
         PlayerPrefs.Save();        
@@ -50,7 +85,13 @@ public class GameManager : MonoBehaviour
     public void LoadSettings()
     {
         //to same jako u Save metody: ukladani by bylo ve vetsim meritku potreba udelat absolutne jinak
-        uiManager.LoadSetting("VolumeSlider", PlayerPrefs.GetFloat("VolumeSlider", 1));
-        Debug.Log("loading " + PlayerPrefs.GetFloat("VolumeSlider", 1));
+
+        float volume = PlayerPrefs.GetFloat("VolumeSlider", 1);
+        uiManager.LoadSetting("VolumeSlider", volume);
+        Debug.Log("loading " + volume);
+        volumeSetting = volume;
+
+        //
+        AudioListener.volume = volume;
     }
 }
