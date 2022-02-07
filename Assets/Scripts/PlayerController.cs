@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
             selectedWeaponIndex=2;
         }
 
+        #region pohyb+anim
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
         //transform.Translate(pohyb, Space.World);
@@ -133,6 +134,7 @@ public class PlayerController : MonoBehaviour
 
         if (Time.timeScale > 0) //fix aby se hrac neotacel v pause menu
             transform.rotation = Quaternion.LookRotation(finalVector);
+        #endregion
     }
 
     public void FixedUpdate()
@@ -156,6 +158,10 @@ public class PlayerController : MonoBehaviour
 
         if (health <= 0)
         {
+            //todo: konec hry
+
+
+
             //death screen
             animator.SetTrigger("Died");
             rb.useGravity = false;

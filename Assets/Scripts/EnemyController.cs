@@ -17,13 +17,11 @@ public class EnemyController : MonoBehaviour
     //[SerializeField] Rigidbody rb;
     [SerializeField] Animator animator;
 
-    // Start is called before the first frame update
     void Start()
     {
-        //todo: najit hrace a priradit do player promenne
+        player = GameManager.Instance.Player;
     }
 
-    // Update is called once per frame
     void Update()
     {
         agent.SetDestination(player.position);
@@ -47,6 +45,10 @@ public class EnemyController : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            GameManager.Instance.AddScore(1);
+
+
+
             agent.enabled = false;
             animator.SetTrigger("Died");
             foreach (Collider c in GetComponents<Collider>())

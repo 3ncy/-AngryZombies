@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image damageOverlay;
     [SerializeField] Text ammoText;
     [SerializeField] Text healthText;
+    [SerializeField] Text scoreText;
     [SerializeField] List<Text> weapons;
     private int currentWeaponIndex;
     [SerializeField] GameObject pauseMenu;
@@ -58,22 +59,22 @@ public class UIManager : MonoBehaviour
         healthText.text = health.ToString() + "/100 HP";
         if (heal)
         {
-            //damageOverlay.color = new Color(0, 255, 0, 0.4f);
             damageOverlay.color = Color.green;
         }
         else
         {
             damageOverlay.color = Color.red;
-            //damageOverlay.color = new Color(255, 0, 0, 0.4f);
         }
         damageOverlay.canvasRenderer.SetAlpha(0.6f);
-        //Debug.Log("sth");
-        //yield return new WaitForSeconds(2);
-        //Debug.Log("potom");
-        //damageOverlay.color = new Color(0, 0, 0, 0);
-
         damageOverlay.CrossFadeAlpha(0, 0.5f, true);
     }
+
+
+    public void UpdateScore(int score)
+    {
+        scoreText.text = score.ToString() + " Points";
+    }
+
 
     //tohle je naprosto fuj a dirty, ale ted to staci 
     public void LoadSetting(string setting, float value)

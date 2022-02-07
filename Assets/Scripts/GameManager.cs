@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,9 +12,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Transform spawners;
     private float spawnRate;
-    
+    private int waveNr;
+    [SerializeField] GameObject zombie;
+    public Transform zombies;
 
-    Random random;
+    public Transform Player;
+    private int score;
+
+
+    System.Random random;
 
     //tohle by bylo realne nejakej objekt nebo tak, ale ted to neni potreba
     public float volumeSetting;
@@ -28,9 +35,6 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-
-
-        random = new Random();
     }
 
     void Start()
@@ -42,21 +46,38 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        random = new Random();
-        SpawnZombies();
-        Debug.Log(Time.time);
+        random = new System.Random();
+        waveNr = 1;
+        StartCoroutine(SpawningCycle());
+    }
+
+
+    private IEnumerator SpawningCycle()
+    {
+        while (true) //prolly spis "while(!gameover)"
+        {
+            SpawnZombies();
+            yield return new WaitForSeconds(7);
+        }
     }
 
     private void SpawnZombies()
     {
-        //todo: do spawning magic
+        int nrOfZombies = waveNr * 2 + 2;
 
-        //Time.time
-
-
-
+        for (int i = 0; i < nrOfZombies; i++)
+        {
+            /*EnemyController enemy = */
+            Instantiate(zombie, spawners.transform.GetChild(random.Next(0, spawners.childCount)).position, Quaternion.identity.normalized, zombies);/*.GetComponent<EnemyController>();*/
+        }
+        waveNr++;
     }
 
+    public void AddScore(int score)
+    {
+        this.score += score;
+        uiManager.UpdateScore(this.score);
+    }
 
     public void ExitGame()
     {
@@ -79,7 +100,7 @@ public class GameManager : MonoBehaviour
                 AudioListener.volume = slider.value;
                 break;
         }
-        PlayerPrefs.Save();        
+        PlayerPrefs.Save();
     }
 
     public void LoadSettings()
