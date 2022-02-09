@@ -9436,6 +9436,7 @@ MonoBehaviour:
     Range: 100
     MuzzleFlash: {fileID: 640231339}
     ImpactEffect: {fileID: 100006, guid: 234e5aa95353f0643b0181dc3872cda9, type: 3}
+    ImpactEffectBlood: {fileID: 197494, guid: 51ed665c59296a24cbe166d027eef088, type: 3}
     WeaponModel: {fileID: 1445787001}
     Sound: {fileID: 8300000, guid: 8723f4874d9e0eb47b953fd522d454e0, type: 3}
   - Name: UMP
@@ -9444,6 +9445,7 @@ MonoBehaviour:
     Range: 100
     MuzzleFlash: {fileID: 1289430897}
     ImpactEffect: {fileID: 100006, guid: 234e5aa95353f0643b0181dc3872cda9, type: 3}
+    ImpactEffectBlood: {fileID: 197494, guid: 51ed665c59296a24cbe166d027eef088, type: 3}
     WeaponModel: {fileID: 950214863}
     Sound: {fileID: 8300000, guid: 639f56d54bf236b409b5f17d80e6353e, type: 3}
   - Name: Shotgun
@@ -9452,6 +9454,7 @@ MonoBehaviour:
     Range: 5
     MuzzleFlash: {fileID: 414527733}
     ImpactEffect: {fileID: 100006, guid: 234e5aa95353f0643b0181dc3872cda9, type: 3}
+    ImpactEffectBlood: {fileID: 197494, guid: 51ed665c59296a24cbe166d027eef088, type: 3}
     WeaponModel: {fileID: 866450653}
     Sound: {fileID: 8300000, guid: 593e350425996384980fee1fe9997ce5, type: 3}
   selectedWeaponIndex: 0
@@ -21344,7 +21347,7 @@ PrefabInstance:
     - target: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
@@ -23731,7 +23734,7 @@ PrefabInstance:
     - target: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
@@ -29286,7 +29289,7 @@ PrefabInstance:
     - target: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
@@ -33554,7 +33557,7 @@ PrefabInstance:
     - target: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}

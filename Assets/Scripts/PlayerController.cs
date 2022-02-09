@@ -9,10 +9,17 @@ public struct Weapon
     public float Firerate; //je to v sekundach, mby predelat do RPM
     public float Damage;
     public float Range;
+    public WeaponType Type;
     public ParticleSystem MuzzleFlash;
     public GameObject ImpactEffect;
+    public GameObject ImpactEffectBlood;
     public GameObject WeaponModel;
     public AudioClip Sound;
+}
+
+public enum WeaponType
+{
+    Automatic, Shotgun,
 }
 
 
@@ -38,7 +45,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         timeSinceLastShot += Time.deltaTime;
-        if (Input.GetButton("Fire1") && timeSinceLastShot >= weapons[selectedWeaponIndex].Firerate)//todo: pridat typy zbrani
+        if (weapons[selectedWeaponIndex].Type == WeaponType.Automatic && Input.GetButton("Fire1") && timeSinceLastShot >= weapons[selectedWeaponIndex].Firerate)
         {
             timeSinceLastShot = 0;
             weapons[selectedWeaponIndex].MuzzleFlash.Play();
@@ -49,28 +56,34 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(shotsOrigin.position, shotsOrigin.forward, out hit, weapons[selectedWeaponIndex].Range))
             {
-                //todo: jinej particle eff pokud dopadne hit na zombie 
-                //todo: udelat ten vfx
-                GameObject impactObj = Instantiate(weapons[selectedWeaponIndex].ImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(impactObj, 0.2f);
-
                 if (hit.transform.CompareTag("Enemy"))
                 {
                     EnemyController enemy = hit.transform.GetComponent<EnemyController>();
                     if (enemy != null)
                     {
                         enemy.TakeDamage(weapons[selectedWeaponIndex].Damage);
-
                     }
 
-
-
-                    //pridani knockbacku, mby udelat l8tr
-                    //hit.rigidbody.addforce
-                    //ale na to nesmi byt RB kinematic, takze na enemy scriptu checkovat rb.velocity a pokud tam neni velocity (rb nepohybuje objektem)
-                    //  tak zapnout rb.kinematic a zapnout agent.enabled
-                    // a ofc opacne kdyz je rb.velocity, tak zase vypnout agenta a kinematic.
+                    GameObject impactObj = Instantiate(weapons[selectedWeaponIndex].ImpactEffectBlood, hit.point, Quaternion.LookRotation(hit.normal));
+                    Destroy(impactObj, 0.2f);
                 }
+                else
+                {
+                    GameObject impactObj = Instantiate(weapons[selectedWeaponIndex].ImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                    Destroy(impactObj, 0.2f);
+                }
+            }
+        }
+        else if (weapons[selectedWeaponIndex].Type == WeaponType.Shotgun && Input.GetButtonDown("Fire1") && timeSinceLastShot >= weapons[selectedWeaponIndex].Firerate) //ok vim ze toho tu je hodne duplicitniho, ale ted tu neni a nebude vice typu zbrani
+        {
+            timeSinceLastShot = 0;
+            weapons[selectedWeaponIndex].MuzzleFlash.Play();
+            audioSource.clip = weapons[selectedWeaponIndex].Sound;
+            audioSource.Play();
+
+            for (int i = 0; i < 6; i++)
+            {
+
             }
         }
 
@@ -95,7 +108,7 @@ public class PlayerController : MonoBehaviour
             uiManager.SwitchWeapon("shotgun");
             weapons[selectedWeaponIndex].WeaponModel.SetActive(false);
             weapons[2].WeaponModel.SetActive(true);
-            selectedWeaponIndex=2;
+            selectedWeaponIndex = 2;
         }
 
         #region pohyb+anim
@@ -159,10 +172,10 @@ public class PlayerController : MonoBehaviour
         if (health <= 0)
         {
             //todo: konec hry
-
-
-
+            GameManager.Instance.GameOver();
             //death screen
+
+
             animator.SetTrigger("Died");
             rb.useGravity = false;
             rb.constraints = RigidbodyConstraints.FreezePosition;

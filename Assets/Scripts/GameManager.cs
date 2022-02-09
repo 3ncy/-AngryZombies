@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     //tohle by bylo realne nejakej objekt nebo tak, ale ted to neni potreba
     public float volumeSetting;
 
+
+
+
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -48,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         random = new System.Random();
         waveNr = 1;
-        StartCoroutine(SpawningCycle());
+        //StartCoroutine(SpawningCycle());  //////////////////////////////// tohle zase odkomentovat v produkci :D 
     }
 
 
@@ -68,7 +72,9 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < nrOfZombies; i++)
         {
             /*EnemyController enemy = */
-            Instantiate(zombie, spawners.transform.GetChild(random.Next(0, spawners.childCount)).position, Quaternion.identity.normalized, zombies);/*.GetComponent<EnemyController>();*/
+            int randomChild = random.Next(0, spawners.childCount);
+            Debug.Log(randomChild);
+            Instantiate(zombie, spawners.transform.GetChild(randomChild).position, Quaternion.identity.normalized, zombies);/*.GetComponent<EnemyController>();*/
         }
         waveNr++;
     }
@@ -78,6 +84,16 @@ public class GameManager : MonoBehaviour
         this.score += score;
         uiManager.UpdateScore(this.score);
     }
+
+
+    public void GameOver()
+    {
+        StopCoroutine(SpawningCycle());
+
+        //todo: show end screen
+        //perhaps tady projet vsechny zombies a vypnout agenta
+    }
+
 
     public void ExitGame()
     {

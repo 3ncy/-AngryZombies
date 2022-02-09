@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour
 
         animator.SetBool("Running", agent.velocity.magnitude > 0);
 
-        animator.SetBool("Attacking", agent.remainingDistance < 1.5f); //todo: mby vypnout animace, po smrti hrace
+        animator.SetBool("Attacking", agent.remainingDistance < 1.5f); //todo: mby vypnout animace, po smrti hrace //actually ne, zombie budou utocit na tu mrtvolu
        
 
         //agent.enabled = rb.isKinematic = rb.velocity.magnitude < 0.01;  // vypnout agenta a zapnout RB pokud je nejaka force na rb
@@ -48,7 +48,6 @@ public class EnemyController : MonoBehaviour
             GameManager.Instance.AddScore(1);
 
 
-
             agent.enabled = false;
             animator.SetTrigger("Died");
             foreach (Collider c in GetComponents<Collider>())
@@ -56,11 +55,9 @@ public class EnemyController : MonoBehaviour
                 c.enabled = false;
             }
             transform.position -= new Vector3(0, 0.05f, 0); //dirty fix na levitujici mrtvoly
-            Destroy(this);    //this.enabled = false;
-            //rb.isKinematic = false;
-            //rb.useGravity = false;
-            //rb.constraints = RigidbodyConstraints.FreezeAll;
-            Destroy(gameObject, 5); //zmizeni mrtvoly po 5s 
+            this.enabled = false;
+            
+            //Destroy(gameObject, 5); //zmizeni mrtvoly po 5s 
         }
     }
 }
