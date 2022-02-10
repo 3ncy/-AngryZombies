@@ -654,7 +654,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 404becd6c113858439db0a81e224b6a7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 404becd6c113858439db0a81e224b6a7,
         type: 3}
@@ -6904,7 +6904,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 7 Points
+  m_Text: 0 Points
 --- !u!222 &355657135
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9012,7 +9012,7 @@ Transform:
   - {fileID: 862017829}
   - {fileID: 1269915296}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &535137659
 PrefabInstance:
@@ -9428,14 +9428,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  health: 100
+  health: 1e+12
   weapons:
   - Name: M4
     Firerate: 0.25
     Damage: 34
     Range: 100
+    Type: 0
     MuzzleFlash: {fileID: 640231339}
-    ImpactEffect: {fileID: 100006, guid: 234e5aa95353f0643b0181dc3872cda9, type: 3}
+    ImpactEffect: {fileID: 6977415959567816992, guid: 992fcba76709baa449228ce7f4b8abd7,
+      type: 3}
     ImpactEffectBlood: {fileID: 197494, guid: 51ed665c59296a24cbe166d027eef088, type: 3}
     WeaponModel: {fileID: 1445787001}
     Sound: {fileID: 8300000, guid: 8723f4874d9e0eb47b953fd522d454e0, type: 3}
@@ -9443,17 +9445,21 @@ MonoBehaviour:
     Firerate: 0.1
     Damage: 10
     Range: 100
+    Type: 0
     MuzzleFlash: {fileID: 1289430897}
-    ImpactEffect: {fileID: 100006, guid: 234e5aa95353f0643b0181dc3872cda9, type: 3}
+    ImpactEffect: {fileID: 6977415959567816992, guid: 992fcba76709baa449228ce7f4b8abd7,
+      type: 3}
     ImpactEffectBlood: {fileID: 197494, guid: 51ed665c59296a24cbe166d027eef088, type: 3}
     WeaponModel: {fileID: 950214863}
     Sound: {fileID: 8300000, guid: 639f56d54bf236b409b5f17d80e6353e, type: 3}
   - Name: Shotgun
     Firerate: 1
-    Damage: 50
+    Damage: 25
     Range: 5
+    Type: 1
     MuzzleFlash: {fileID: 414527733}
-    ImpactEffect: {fileID: 100006, guid: 234e5aa95353f0643b0181dc3872cda9, type: 3}
+    ImpactEffect: {fileID: 6977415959567816992, guid: 992fcba76709baa449228ce7f4b8abd7,
+      type: 3}
     ImpactEffectBlood: {fileID: 197494, guid: 51ed665c59296a24cbe166d027eef088, type: 3}
     WeaponModel: {fileID: 866450653}
     Sound: {fileID: 8300000, guid: 593e350425996384980fee1fe9997ce5, type: 3}
@@ -10611,7 +10617,7 @@ Transform:
   - {fileID: 1459821674}
   - {fileID: 2104181819}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &640231339 stripped
 ParticleSystem:
@@ -11052,7 +11058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cdf14baff693fbc439f8c859529a63a6, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cdf14baff693fbc439f8c859529a63a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -15519,7 +15525,7 @@ Transform:
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
@@ -16400,7 +16406,7 @@ Transform:
   - {fileID: 2131911946}
   - {fileID: 252128445}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1051610080
 PrefabInstance:
@@ -21330,7 +21336,7 @@ Transform:
   - {fileID: 270897397}
   - {fileID: 1438145443}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1388956655
 PrefabInstance:
@@ -21347,7 +21353,7 @@ PrefabInstance:
     - target: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
@@ -23734,7 +23740,7 @@ PrefabInstance:
     - target: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
@@ -29289,7 +29295,7 @@ PrefabInstance:
     - target: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
@@ -33557,7 +33563,7 @@ PrefabInstance:
     - target: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
@@ -33597,7 +33603,7 @@ PrefabInstance:
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1983646646575558203, guid: d167c12288f78c846abdfa7ba1d2a1e0,
         type: 3}

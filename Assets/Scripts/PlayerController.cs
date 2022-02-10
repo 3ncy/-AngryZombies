@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
 
-
     void Update()
     {
         timeSinceLastShot += Time.deltaTime;
@@ -81,10 +80,35 @@ public class PlayerController : MonoBehaviour
             audioSource.clip = weapons[selectedWeaponIndex].Sound;
             audioSource.Play();
 
-            for (int i = 0; i < 6; i++)
-            {
 
+            RaycastHit hit;
+            shotsOrigin.Rotate(0, -6 / 2 * 2.5f, 0); //2.5 je magicke cislo indikujici spread peletkek shotguny ve stupnich. Pokud by bylo vice typu zbrani, tohle by se ofc presunulo do Weapon classky
+
+            for (int i = 1; i <= 6; i++)
+            {
+                shotsOrigin.Rotate(new Vector3(0, 2.5f, 0));
+
+                if (Physics.Raycast(shotsOrigin.position, shotsOrigin.forward, out hit, weapons[selectedWeaponIndex].Range))
+                {
+                    if (hit.transform.CompareTag("Enemy"))
+                    {
+                        EnemyController enemy = hit.transform.GetComponent<EnemyController>();
+                        if (enemy != null)
+                        {
+                            enemy.TakeDamage(weapons[selectedWeaponIndex].Damage);
+                        }
+
+                        GameObject impactObj = Instantiate(weapons[selectedWeaponIndex].ImpactEffectBlood, hit.point, Quaternion.LookRotation(hit.normal));
+                        Destroy(impactObj, 0.2f);
+                    }
+                    else
+                    {
+                        GameObject impactObj = Instantiate(weapons[selectedWeaponIndex].ImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                        Destroy(impactObj, 0.2f);
+                    }
+                }
             }
+            shotsOrigin.localEulerAngles = Vector3.zero;
         }
 
 

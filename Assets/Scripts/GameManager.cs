@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         random = new System.Random();
         waveNr = 1;
-        //StartCoroutine(SpawningCycle());  //////////////////////////////// tohle zase odkomentovat v produkci :D 
+        StartCoroutine(SpawningCycle());  //////////////////////////////// tohle zase odkomentovat v produkci :D 
     }
 
 
