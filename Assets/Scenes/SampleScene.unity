@@ -9443,7 +9443,7 @@ MonoBehaviour:
     Sound: {fileID: 8300000, guid: 8723f4874d9e0eb47b953fd522d454e0, type: 3}
   - Name: UMP
     Firerate: 0.1
-    Damage: 10
+    Damage: 100
     Range: 100
     Type: 0
     MuzzleFlash: {fileID: 1289430897}
@@ -19485,9 +19485,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 22415034, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -349.8
+      objectReference: {fileID: 0}
     - target: {fileID: 22424132, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.19995117
+      objectReference: {fileID: 0}
+    - target: {fileID: 22431670, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -173.63
       objectReference: {fileID: 0}
     - target: {fileID: 22439978, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -19596,6 +19604,14 @@ PrefabInstance:
     - target: {fileID: 22477518, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.19995117
+      objectReference: {fileID: 0}
+    - target: {fileID: 22493042, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -492
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013357413722, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224000010243477314, guid: 0abab5bb77339e4428787a870eb31bd3,
         type: 3}
@@ -30336,10 +30352,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 128384878}
   spawners: {fileID: 1184817122}
-  zombie: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0, type: 3}
-  zombies: {fileID: 513083425}
+  zombiePrefab: {fileID: 1210488296064922753, guid: d167c12288f78c846abdfa7ba1d2a1e0,
+    type: 3}
+  zombiesParent: {fileID: 513083425}
   Player: {fileID: 1903693680}
   volumeSetting: 0
+  Enabled: 0
+  Disabled: 0
+  QCount: 0
 --- !u!4 &2003957174
 Transform:
   m_ObjectHideFlags: 0

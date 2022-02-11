@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform spawners;
     private float spawnRate;
     private int waveNr;
-    [SerializeField] GameObject zombie;
-    public Transform zombies;
+    [SerializeField] GameObject zombiePrefab;
+    public Transform zombiesParent;
 
     public Transform Player;
     private int score;
@@ -27,7 +27,10 @@ public class GameManager : MonoBehaviour
 
 
 
-
+    private Queue<GameObject> zombiePool;
+    public int Enabled;
+    public int Disabled;
+    public int QCount;
 
     void Awake()
     {
@@ -39,6 +42,8 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        zombiePool = new Queue<GameObject>();
     }
 
     void Start()
@@ -73,18 +78,44 @@ public class GameManager : MonoBehaviour
         {
             /*EnemyController enemy = */
             int randomChild = random.Next(0, spawners.childCount);
-            Debug.Log(randomChild);
-            Instantiate(zombie, spawners.transform.GetChild(randomChild).position, Quaternion.identity.normalized, zombies);/*.GetComponent<EnemyController>();*/
+            //Debug.Log(randomChild);
+            //Instantiate(zombie, spawners.transform.GetChild(randomChild).position, Quaternion.identity.normalized,
+            //            zombies);/*.GetComponent<EnemyController>();*/
+
+            if (zombiePool.Count == 0)
+            {
+                Instantiate(zombiePrefab, spawners.transform.GetChild(randomChild).position, Quaternion.identity.normalized,
+                        zombiesParent);
+                Enabled++;
+            }
+            else //get zombie from pool
+            {
+                GameObject zombie = zombiePool.Dequeue();
+                zombie.transform.SetPositionAndRotation(spawners.transform.GetChild(randomChild).position, Quaternion.identity);
+                //zombie.transform.SetParent(zombiesParent);
+                zombie.GetComponent<EnemyController>().Restart();
+                Enabled++;
+                Disabled--;
+            }
         }
         waveNr++;
     }
 
-    public void AddScore(int score)
+    public void AddScore(int score, EnemyController zombie)
     {
         this.score += score;
         uiManager.UpdateScore(this.score);
+
+        //add zombie back to pool
+        zombiePool.Enqueue(zombie.gameObject);
+        Disabled++;
+        Enabled--;
     }
 
+    void Update()//todo: smazat:
+    {
+        QCount = zombiePool.Count;
+    }
 
     public void GameOver()
     {
