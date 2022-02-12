@@ -38,6 +38,14 @@ public class UIManager : MonoBehaviour
         pauseMenu.SetActive(paused);
     }
 
+    public void GoToMenu()
+    {
+        //mainMenu.SetActive(true);
+        //HUD.SetActive(false);
+        //pauseMenu.SetActive(false);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+
     public void ChangeAmmo(int ammo/*, int maxAmmo*/)
     {
         ammoText.text = ammo.ToString()/* + "/" + maxAmmo.ToString()*/;

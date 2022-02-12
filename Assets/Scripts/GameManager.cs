@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public Transform Player;
     private int score;
 
+    [SerializeField] private GameObject medkitPrefab;
 
     System.Random random;
 
@@ -28,9 +29,6 @@ public class GameManager : MonoBehaviour
 
 
     private Queue<GameObject> zombiePool;
-    public int Enabled;
-    public int Disabled;
-    public int QCount;
 
     void Awake()
     {
@@ -60,7 +58,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SpawningCycle());  //////////////////////////////// tohle zase odkomentovat v produkci :D 
     }
 
-
     private IEnumerator SpawningCycle()
     {
         while (true) //prolly spis "while(!gameover)"
@@ -76,26 +73,18 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < nrOfZombies; i++)
         {
-            /*EnemyController enemy = */
             int randomChild = random.Next(0, spawners.childCount);
-            //Debug.Log(randomChild);
-            //Instantiate(zombie, spawners.transform.GetChild(randomChild).position, Quaternion.identity.normalized,
-            //            zombies);/*.GetComponent<EnemyController>();*/
 
             if (zombiePool.Count == 0)
             {
                 Instantiate(zombiePrefab, spawners.transform.GetChild(randomChild).position, Quaternion.identity.normalized,
                         zombiesParent);
-                Enabled++;
             }
             else //get zombie from pool
             {
                 GameObject zombie = zombiePool.Dequeue();
                 zombie.transform.SetPositionAndRotation(spawners.transform.GetChild(randomChild).position, Quaternion.identity);
-                //zombie.transform.SetParent(zombiesParent);
                 zombie.GetComponent<EnemyController>().Restart();
-                Enabled++;
-                Disabled--;
             }
         }
         waveNr++;
@@ -108,14 +97,14 @@ public class GameManager : MonoBehaviour
 
         //add zombie back to pool
         zombiePool.Enqueue(zombie.gameObject);
-        Disabled++;
-        Enabled--;
+
+        if (random.Next(0, 20) == 1) //v jednom z 20 zombie bude medkit cca
+        {
+            GameObject medkit = Instantiate(medkitPrefab, zombie.gameObject.transform.position, Quaternion.identity);
+            Debug.Log("spawning medkit @ " + medkit.transform.position);
+        }
     }
 
-    void Update()//todo: smazat:
-    {
-        QCount = zombiePool.Count;
-    }
 
     public void GameOver()
     {
@@ -125,12 +114,12 @@ public class GameManager : MonoBehaviour
         //perhaps tady projet vsechny zombies a vypnout agenta
     }
 
-
-    public void ExitGame()
+    public void SaveHighscores()
     {
-        Application.Quit();
+
     }
 
+    public void ExitGame() => Application.Quit();
 
     public void SaveSettings(UnityEngine.UI.Selectable element)
     {
