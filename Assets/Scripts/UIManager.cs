@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text ammoText;
     [SerializeField] Text healthText;
     [SerializeField] Text scoreText;
-    [SerializeField] List<Text> weapons;
+    [SerializeField] List<Text> weaponTexts;
     private int currentWeaponIndex;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject settingsMenu;
@@ -19,7 +19,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject mainMenu;
 
     private bool paused = false;
-
 
     void Start() { }
 
@@ -38,11 +37,13 @@ public class UIManager : MonoBehaviour
         pauseMenu.SetActive(paused);
     }
 
+    public void EnableWeapon(int index)
+    {
+        weaponTexts[index].gameObject.SetActive(true);
+    }
+
     public void GoToMenu()
     {
-        //mainMenu.SetActive(true);
-        //HUD.SetActive(false);
-        //pauseMenu.SetActive(false);
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 
@@ -53,25 +54,27 @@ public class UIManager : MonoBehaviour
 
     public void SwitchWeapon(string toWeapon)
     {
-        weapons[currentWeaponIndex].gameObject.GetComponent<Outline>().enabled = false;
+        //check neni potreba kdyz to hrac stejne nevidi
+        //if (!weaponTexts[currentWeaponIndex].transform.parent.Find(toWeapon.ToLower()).gameObject.activeSelf)
+        //    return;
+        weaponTexts[currentWeaponIndex].gameObject.GetComponent<Outline>().enabled = false;
+   
+        currentWeaponIndex = weaponTexts.FindIndex(t => t.gameObject.name.ToLower().Contains(toWeapon.ToLower()));
 
-        currentWeaponIndex = weapons.FindIndex(t => t.gameObject.name.ToLower().Contains(toWeapon.ToLower()));
-        Text weapon = weapons[currentWeaponIndex];
-        weapon.gameObject.GetComponent<Outline>().enabled = true;
-
-        //predpokladam ze komponent neni null, protoze tam byt musi
+        weaponTexts[currentWeaponIndex].gameObject.GetComponent<Outline>().enabled = true;
     }
 
     public void ChangeHealth(float health, bool heal)
     {
         healthText.text = health.ToString() + "/100 HP";
+        damageOverlay.color = Color.clear;
         if (heal)
         {
             damageOverlay.color = Color.green;
         }
         else
         {
-            damageOverlay.color = Color.red;
+            damageOverlay.color = Color.red;            
         }
         damageOverlay.canvasRenderer.SetAlpha(0.6f);
         damageOverlay.CrossFadeAlpha(0, 0.5f, true);

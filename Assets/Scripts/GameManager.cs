@@ -14,12 +14,16 @@ public class GameManager : MonoBehaviour
     private float spawnRate;
     private int waveNr;
     [SerializeField] GameObject zombiePrefab;
-    public Transform zombiesParent;
+    [SerializeField] Transform zombiesParent;
 
     public Transform Player;
-    private int score;
+    private int Score;
 
     [SerializeField] private GameObject medkitPrefab;
+
+    public List<Weapon> Weapons;
+    [SerializeField] GameObject umpPrefab;
+    [SerializeField] GameObject shotgunPrefab;
 
     System.Random random;
 
@@ -92,16 +96,23 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int score, EnemyController zombie)
     {
-        this.score += score;
-        uiManager.UpdateScore(this.score);
+        this.Score += score;
+        uiManager.UpdateScore(this.Score);
 
         //add zombie back to pool
         zombiePool.Enqueue(zombie.gameObject);
 
-        if (random.Next(0, 20) == 1) //v jednom z 20 zombie bude medkit cca
+        if (Score == 20)
+        {  //spawn SMG
+            Instantiate(umpPrefab, zombie.gameObject.transform.position, Quaternion.identity);
+        }
+        else if (Score == 50)
+        { //spawn shotgun
+            Instantiate(shotgunPrefab, zombie.gameObject.transform.position, Quaternion.identity);
+        }
+        else if (random.Next(0, 20) == 1) //v jednom z 20 zombie bude medkit cca
         {
-            GameObject medkit = Instantiate(medkitPrefab, zombie.gameObject.transform.position, Quaternion.identity);
-            Debug.Log("spawning medkit @ " + medkit.transform.position);
+            Instantiate(medkitPrefab, zombie.gameObject.transform.position, Quaternion.identity);
         }
     }
 

@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 26;
     [SerializeField] float health = 100;
-    [SerializeField] Weapon[] weapons;  //M4 - firerate 0.25, damage 20
+    [SerializeField] List<Weapon> weapons; 
     [SerializeField] int selectedWeaponIndex;
     [SerializeField] Transform shotsOrigin;
     private float timeSinceLastShot = 0;
@@ -120,14 +120,14 @@ public class PlayerController : MonoBehaviour
             weapons[0].WeaponModel.SetActive(true);
             selectedWeaponIndex = 0;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && weapons.Length > 1)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && weapons.Count > 1)
         {
             uiManager.SwitchWeapon("ump");
             weapons[selectedWeaponIndex].WeaponModel.SetActive(false);
             weapons[1].WeaponModel.SetActive(true);
             selectedWeaponIndex = 1;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3) && weapons.Length > 2)
+        if (Input.GetKeyDown(KeyCode.Alpha3) && weapons.Count > 2)
         {
             uiManager.SwitchWeapon("shotgun");
             weapons[selectedWeaponIndex].WeaponModel.SetActive(false);
@@ -183,7 +183,6 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(transform.position + pohyb);
     }
 
-
     public void TakeDamage(float damage)
     {
         // ridat red screen overlay pri hitu
@@ -210,5 +209,29 @@ public class PlayerController : MonoBehaviour
             Destroy(this);
         }
 
+    }
+
+    void OnTriggerEnter(Collider c)
+    {
+        //ok, vim ze tyhle namingy nejsou uplne nejlepsi, ale az zas tolik to nevadi
+
+        if (c.gameObject.name == "box_med")
+        {
+            health += health <= 40 ? 60 : 100 - health; //bascially prida 60hp nebo do 100
+            uiManager.ChangeHealth(health, true);
+            Destroy(c.gameObject);
+        }
+        else if (c.gameObject.name == "UMP-45 Variant")
+        {
+            weapons.Add(GameManager.Instance.Weapons[1]);
+            uiManager.EnableWeapon(1);
+            Destroy(c.gameObject);
+        }
+        else if (c.gameObject.name == "Object001")//shotgun
+        {
+            weapons.Add(GameManager.Instance.Weapons[2]);
+            uiManager.EnableWeapon(2);
+            Destroy(c.gameObject);
+        }
     }
 }
